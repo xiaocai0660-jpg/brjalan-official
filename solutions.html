@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment Solutions - BR Jalan Securities</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #1e3a8a;
+            --accent-gold: #f59e0b;
+            --success-green: #10b981;
+            --warning-red: #ef4444;
+            --neutral-light: #f8fafc;
+            --neutral-dark: #374151;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #1e40af 50%, var(--accent-gold) 100%);
+            background-attachment: fixed;
+        }
+        
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            background: linear-gradient(135deg, #ffffff 0%, var(--accent-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .data-font {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .investment-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: var(--accent-gold);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-gold);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .portfolio-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 8px;
+            border-radius: 5px;
+            background: #ddd;
+            outline: none;
+        }
+        
+        .portfolio-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--accent-gold);
+            cursor: pointer;
+        }
+        
+        .portfolio-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--accent-gold);
+            cursor: pointer;
+            border: none;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-md shadow-lg z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold text-blue-900">BR Jalan Securities</h1>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="index.html" class="nav-link text-gray-600 hover:text-blue-900 font-medium">Home</a>
+                        <a href="investment-scheme.html" class="nav-link text-gray-600 hover:text-blue-900 font-medium">10th CIS</a>
+                        <a href="solutions.html" class="nav-link text-blue-900 font-medium">Investment Solutions</a>
+                        <a href="about.html" class="nav-link text-gray-600 hover:text-blue-900 font-medium">About Us</a>
+                        <a href="insights.html" class="nav-link text-gray-600 hover:text-blue-900 font-medium">Market Insights</a>
+                        <a href="portal.html" class="nav-link text-gray-600 hover:text-blue-900 font-medium">Investor Portal</a>
+                        <a href="contact.html" class="nav-link text-gray-600 hover:text-blue-900 font-medium">Contact</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-blue-900">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white shadow-lg">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="index.html" class="block px-3 py-2 text-gray-600 hover:text-blue-900">Home</a>
+                <a href="investment-scheme.html" class="block px-3 py-2 text-gray-600 hover:text-blue-900">10th CIS</a>
+                <a href="solutions.html" class="block px-3 py-2 text-blue-900 font-medium">Investment Solutions</a>
+                <a href="about.html" class="block px-3 py-2 text-gray-600 hover:text-blue-900">About Us</a>
+                <a href="insights.html" class="block px-3 py-2 text-gray-600 hover:text-blue-900">Market Insights</a>
+                <a href="portal.html" class="block px-3 py-2 text-gray-600 hover:text-blue-900">Investor Portal</a>
+                <a href="contact.html" class="block px-3 py-2 text-gray-600 hover:text-blue-900">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-24 pb-16 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-blue-900/90 via-blue-800/90 to-amber-600/90"></div>
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="hero-title text-4xl md:text-6xl font-bold mb-6">
+                Investment Solutions
+            </h1>
+            <p class="text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto">
+                Tailored investment strategies designed to meet your unique financial goals and risk appetite
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#portfolio-analyzer" class="bg-amber-500 hover:bg-amber-600 text-white px-8 py-4 rounded-lg font-semibold transition-colors">
+                    Portfolio Analyzer
+                </a>
+                <a href="#solutions" class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-blue-900 px-8 py-4 rounded-lg font-semibold transition-colors">
+                    View Solutions
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Analyzer -->
+    <section id="portfolio-analyzer" class="py-20 bg-white/95">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Interactive Portfolio Analyzer</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Visualize and optimize your investment portfolio with our advanced analysis tools
+                </p>
+            </div>
+            
+            <div class="investment-card rounded-2xl p-8">
+                <div class="grid lg:grid-cols-2 gap-12">
+                    <!-- Portfolio Configuration -->
+                    <div class="space-y-8">
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-800 mb-6">Portfolio Allocation</h3>
+                            <div class="space-y-6">
+                                <div>
+                                    <div class="flex justify-between items-center mb-2">
+                                        <label class="text-sm font-medium text-gray-700">Equity</label>
+                                        <span id="equity-value" class="data-font font-bold text-blue-900">60%</span>
+                                    </div>
+                                    <input type="range" id="equity-slider" min="0" max="100" value="60" 
+                                           class="portfolio-slider w-full cursor-pointer">
+                                </div>
+                                
+                                <div>
+                                    <div class="flex justify-between items-center mb-2">
+                                        <label class="text-sm font-medium text-gray-700">Debt</label>
+                                        <span id="debt-value" class="data-font font-bold text-green-600">25%</span>
+                                    </div>
+                                    <input type="range" id="debt-slider" min="0" max="100" value="25" 
+                                           class="portfolio-slider w-full cursor-pointer">
+                                </div>
+                                
+                                <div>
+                                    <div class="flex justify-between items-center mb-2">
+                                        <label class="text-sm font-medium text-gray-700">Gold</label>
+                                        <span id="gold-value" class="data-font font-bold text-amber-600">10%</span>
+                                    </div>
+                                    <input type="range" id="gold-slider" min="0" max="100" value="10" 
+                                           class="portfolio-slider w-full cursor-pointer">
+                                </div>
+                                
+                                <div>
+                                    <div class="flex justify-between items-center mb-2">
+                                        <label class="text-sm font-medium text-gray-700">Cash</label>
+                                        <span id="cash-value" class="data-font font-bold text-gray-600">5%</span>
+                                    </div>
+                                    <input type="range" id="cash-slider" min="0" max="100" value="5" 
+                                           class="portfolio-slider w-full cursor-pointer">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-xl font-semibold text-gray-800 mb-4">Investment Details</h4>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">Total Investment:</span>
+                                    <span id="total-investment" class="data-font font-bold text-blue-900">₹10,00,000</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">Expected Annual Return:</span>
+                                    <span id="expected-return" class="data-font font-bold text-green-600">13.2%</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">Risk Level:</span>
+                                    <span id="risk-level" class="data-font font-bold text-amber-600">Moderate</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">Portfolio Score:</span>
+                                    <span id="portfolio-score" class="data-font font-bold text-blue-900">8.5/10</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Charts -->
+                    <div class="space-y-8">
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-800 mb-6">Portfolio Visualization</h3>
+                            <div id="portfolio-pie-chart" style="width: 100%; height: 300px;"></div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-xl font-semibold text-gray-800 mb-4">Risk-Return Analysis</h4>
+                            <div id="risk-return-chart" style="width: 100%; height: 250px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Investment Solutions -->
+    <section id="solutions" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Our Investment Solutions</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Choose from our range of expertly crafted investment strategies
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Conservative Portfolio -->
+                <div class="card-hover investment-card rounded-2xl p-8">
+                    <div class="text-center mb-6">
+                        <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Conservative Growth</h3>
+                        <p class="text-gray-600">Capital preservation with steady returns</p>
+                    </div>
+                    
+                    <div class="space-y-4 mb-6">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">Expected Return:</span>
+                            <span class="data-font font-bold text-green-600">8-10% p.a.</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">Risk Level:</span>
+                            <span class="data-font font-bold text-green-600">Low</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">Min. Investment:</span>
+                            <span class="data-font font-bold text-blue-900">₹2,00,000</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-semibold text-gray-800 mb-3">Asset Allocation</h4>
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-sm">
+                                <span>Debt Securities</span>
+                                <span class="data-font">70%</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span>Equity</span>
+                                <span class="data-font">20%</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span>Gold ETFs</span>
+                                <span class="data-font">10%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-semibold transition-colors">
+                        Select Plan
+                    </button>
+                </div>
+                
+                <!-- Balanced Portfolio -->
+                <div class="card-hover investment-card rounded-2xl p-8 border-2 border-amber-200">
+                    <div class="text-center mb-6">
+                        <div class="w-20 h-20 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-10 h-10 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Balanced Portfolio</h3>
+                        <p class="text-gray-600">Optimal risk-return balance</p>
+                        <span class="inline-block bg-amber-100 text-amber-800 text-xs px-2 py-1 rounded-full mt-2">Most Popular</span>
+                    </div>
+                    
+                    <div class="space-y-4 mb-6">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">Expected Return:</span>
+                            <span class="data-font font-bold text-green-600">12-15% p.a.</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">Risk Level:</span>
+                            <span class="data-font font-bold text-amber-600">Moderate</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">Min. Investment:</span>
+                            <span class="data-font font-bold text-blue-900">₹5,00,000</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-semibold text-gray-800 mb-3">Asset Allocation</h4>
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-sm">
+                                <span>Equity</span>
+                                <span class="data-font">60%</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span>Debt</span>
+                                <span class="data-font">25%</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span>Alternatives</span>
+                                <span class="data-font">15%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full bg-amber-600 hover:bg-amber-700 text-white py-3 rounded-lg font-semibold transition-colors">
+                        Select Plan
+                    </button>
+                </div>
+                
+                <!-- Aggressive Portfolio -->
+                <div class="card-hover investment-card rounded-2xl p-8">
+                    <div class="text-center mb-6">
+                        <div class="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-10 h-10 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Growth Maximizer</h3>
+                        <p class="text-gray-600">High growth potential for long-term wealth</p>
+                    </div>
+                    
+                    <div class="space-y-4 mb-6">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">Expected Return:</span>
+                            <span class="data-font font-bold text-green-600">16-20% p.a.</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">Risk Level:</span>
+                            <span class="data-font font-bold text-red-600">High</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">Min. Investment:</span>
+                            <span class="data-font font-bold text-blue-900">₹10,00,000</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-semibold text-gray-800 mb-3">Asset Allocation</h4>
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-sm">
+                                <span>Equity</span>
+                                <span class="data-font">80%</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span>Debt</span>
+                                <span class="data-font">10%</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span>Alternatives</span>
+                                <span class="data-font">10%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg font-semibold transition-colors">
+                        Select Plan
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Performance Comparison -->
+    <section class="py-20 bg-white/95">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Historical Performance</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Track record of our investment solutions over different time periods
+                </p>
+            </div>
+            
+            <div class="investment-card rounded-2xl p-8">
+                <div id="performance-chart" style="width: 100%; height: 400px;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h3 class="text-2xl font-bold mb-4">BR Jalan Securities Pvt. Ltd.</h3>
+                <p class="text-gray-400 mb-6">
+                    SEBI Reg. No. INZ000199136<br>
+                    Investment in securities market are subject to market risks, read all the related documents carefully before investing.
+                </p>
+                <div class="border-t border-gray-700 pt-6">
+                    <p class="text-gray-400">
+                        © 2022 B R Jalan Securities Pvt. Ltd. All rights reserved.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float Button -->
+    <div class="whatsapp-float">
+        <a href="https://wa.me/919601271770" target="_blank" class="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition-colors">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+            </svg>
+        </a>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+
+        // Portfolio Analyzer
+        let portfolioChart, riskReturnChart, performanceChart;
+
+        function initPortfolioAnalyzer() {
+            // Initialize pie chart
+            portfolioChart = echarts.init(document.getElementById('portfolio-pie-chart'));
+            
+            // Initialize risk-return chart
+            riskReturnChart = echarts.init(document.getElementById('risk-return-chart'));
+            
+            // Initialize performance chart
+            performanceChart = echarts.init(document.getElementById('performance-chart'));
+            
+            updatePortfolioCharts();
+            updatePerformanceChart();
+        }
+
+        function updatePortfolioCharts() {
+            const equity = parseInt(document.getElementById('equity-slider').value);
+            const debt = parseInt(document.getElementById('debt-slider').value);
+            const gold = parseInt(document.getElementById('gold-slider').value);
+            const cash = parseInt(document.getElementById('cash-slider').value);
+            
+            // Update displays
+            document.getElementById('equity-value').textContent = equity + '%';
+            document.getElementById('debt-value').textContent = debt + '%';
+            document.getElementById('gold-value').textContent = gold + '%';
+            document.getElementById('cash-value').textContent = cash + '%';
+            
+            // Calculate expected return and risk
+            const expectedReturn = (equity * 0.15 + debt * 0.08 + gold * 0.10 + cash * 0.04) / 100;
+            const riskLevel = equity > 70 ? 'High' : equity > 40 ? 'Moderate' : 'Low';
+            const portfolioScore = Math.min(10, (expectedReturn * 50) + (100 - equity) * 0.05);
+            
+            document.getElementById('expected-return').textContent = (expectedReturn * 100).toFixed(1) + '%';
+            document.getElementById('risk-level').textContent = riskLevel;
+            document.getElementById('portfolio-score').textContent = portfolioScore.toFixed(1) + '/10';
+            
+            // Update pie chart
+            const pieOption = {
+                tooltip: {
+                    trigger: 'item',
+                    formatter: '{a} <br/>{b}: {c}% ({d}%)'
+                },
+                series: [{
+                    name: 'Portfolio',
+                    type: 'pie',
+                    radius: ['40%', '70%'],
+                    avoidLabelOverlap: false,
+                    itemStyle: {
+                        borderRadius: 10,
+                        borderColor: '#fff',
+                        borderWidth: 2
+                    },
+                    label: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        label: {
+                            show: true,
+                            fontSize: '18',
+                            fontWeight: 'bold'
+                        }
+                    },
+                    labelLine: {
+                        show: false
+                    },
+                    data: [
+                        {value: equity, name: 'Equity', itemStyle: {color: '#1e3a8a'}},
+                        {value: debt, name: 'Debt', itemStyle: {color: '#10b981'}},
+                        {value: gold, name: 'Gold', itemStyle: {color: '#f59e0b'}},
+                        {value: cash, name: 'Cash', itemStyle: {color: '#6b7280'}}
+                    ]
+                }]
+            };
+            
+            portfolioChart.setOption(pieOption);
+            
+            // Update risk-return chart
+            const riskReturnOption = {
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross'
+                    }
+                },
+                xAxis: {
+                    type: 'value',
+                    name: 'Risk (%)',
+                    min: 0,
+                    max: 30
+                },
+                yAxis: {
+                    type: 'value',
+                    name: 'Expected Return (%)',
+                    min: 0,
+                    max: 25
+                },
+                series: [{
+                    name: 'Your Portfolio',
+                    type: 'scatter',
+                    data: [[equity * 0.3, expectedReturn * 100]],
+                    symbolSize: 20,
+                    itemStyle: {
+                        color: '#f59e0b'
+                    }
+                }, {
+                    name: 'Efficient Frontier',
+                    type: 'line',
+                    data: [[0, 4], [10, 8], [20, 12], [30, 16]],
+                    lineStyle: {
+                        color: '#1e3a8a',
+                        type: 'dashed'
+                    },
+                    symbol: 'none'
+                }]
+            };
+            
+            riskReturnChart.setOption(riskReturnOption);
+        }
+
+        function updatePerformanceChart() {
+            const performanceOption = {
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross',
+                        label: {
+                            backgroundColor: '#6a7985'
+                        }
+                    }
+                },
+                legend: {
+                    data: ['Conservative', 'Balanced', 'Aggressive', 'Benchmark']
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: ['2019', '2020', '2021', '2022', '2023', '2024']
+                },
+                yAxis: {
+                    type: 'value',
+                    name: 'Returns (%)'
+                },
+                series: [
+                    {
+                        name: 'Conservative',
+                        type: 'line',
+                        data: [8.5, 6.2, 9.1, 7.8, 8.9, 9.2],
+                        itemStyle: {color: '#10b981'}
+                    },
+                    {
+                        name: 'Balanced',
+                        type: 'line',
+                        data: [12.1, 8.5, 14.2, 11.8, 13.5, 15.1],
+                        itemStyle: {color: '#f59e0b'}
+                    },
+                    {
+                        name: 'Aggressive',
+                        type: 'line',
+                        data: [16.8, 12.3, 18.9, 15.2, 17.7, 19.4],
+                        itemStyle: {color: '#ef4444'}
+                    },
+                    {
+                        name: 'Benchmark',
+                        type: 'line',
+                        data: [10.5, 7.8, 11.2, 9.5, 10.8, 11.1],
+                        itemStyle: {color: '#6b7280'},
+                        lineStyle: {type: 'dashed'}
+                    }
+                ]
+            };
+            
+            performanceChart.setOption(performanceOption);
+        }
+
+        // Event listeners for sliders
+        document.addEventListener('DOMContentLoaded', function() {
+            initPortfolioAnalyzer();
+            
+            const sliders = ['equity-slider', 'debt-slider', 'gold-slider', 'cash-slider'];
+            sliders.forEach(sliderId => {
+                document.getElementById(sliderId).addEventListener('input', function() {
+                    // Normalize values to ensure total is 100%
+                    const equity = parseInt(document.getElementById('equity-slider').value);
+                    const debt = parseInt(document.getElementById('debt-slider').value);
+                    const gold = parseInt(document.getElementById('gold-slider').value);
+                    const cash = parseInt(document.getElementById('cash-slider').value);
+                    
+                    const total = equity + debt + gold + cash;
+                    if (total !== 100) {
+                        const diff = 100 - total;
+                        const currentValue = parseInt(this.value);
+                        this.value = currentValue + diff;
+                    }
+                    
+                    updatePortfolioCharts();
+                });
+            });
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (portfolioChart) portfolioChart.resize();
+            if (riskReturnChart) riskReturnChart.resize();
+            if (performanceChart) performanceChart.resize();
+        });
+    </script>
+</body>
+</html>
