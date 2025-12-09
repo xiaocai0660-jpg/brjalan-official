@@ -3,420 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BR Jalan Securities - Professional Investment Solutions</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
-    <script src="https://unpkg.com/splitting@1.0.6/dist/splitting.js"></script>
-    <link href="https://unpkg.com/splitting@1.0.6/dist/splitting.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-blue: #1e3a8a;
-            --accent-gold: #f59e0b;
-            --success-green: #10b981;
-            --warning-red: #ef4444;
-            --neutral-light: #f8fafc;
-            --neutral-dark: #374151;
-        }
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, var(--primary-blue) 0%, #1e40af 50%, var(--accent-gold) 100%);
-            background-attachment: fixed;
-        }
-        
-        .hero-title {
-            font-family: 'Playfair Display', serif;
-            background: linear-gradient(135deg, #ffffff 0%, var(--accent-gold) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .data-font {
-            font-family: 'JetBrains Mono', monospace;
-        }
-        
-        .card-hover {
-            transition: all 0.3s ease;
-        }
-        
-        .card-hover:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-        }
-        
-        .gradient-text {
-            background: linear-gradient(135deg, var(--accent-gold) 0%, var(--success-green) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .whatsapp-float {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 1000;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-        
-        .nav-link {
-            position: relative;
-            transition: color 0.3s ease;
-        }
-        
-        .nav-link:hover {
-            color: var(--accent-gold);
-        }
-        
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent-gold);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        
-        .investment-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .stats-counter {
-            font-size: 3rem;
-            font-weight: 700;
-            color: var(--accent-gold);
-        }
-        
-        @media (max-width: 768px) {
-            .stats-counter {
-                font-size: 2rem;
-            }
-        }
-    </style>
+    <title>Home - BR JALAN Securities Pvt. Ltd.</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="text-gray-800">
-    <!-- Navigation -->
-    <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-md shadow-lg z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex items-center">
-                    <h1 class="text-2xl font-bold text-blue-900">BR Jalan Securities</h1>
-                </div>
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-8">
-                        <a href="index.html" class="nav-link text-blue-900 font-medium">Home</a>
-                        <a href="investment-scheme.html" class="nav-link text-gray-600 hover:text-blue-900 font-medium">10th CIS</a>
-                        <a href="solutions.html" class="nav-link text-gray-600 hover:text-blue-900 font-medium">Investment Solutions</a>
-                        <a href="about.html" class="nav-link text-gray-600 hover:text-blue-900 font-medium">About Us</a>
-                        <a href="insights.html" class="nav-link text-gray-600 hover:text-blue-900 font-medium">Market Insights</a>
-                        <a href="portal.html" class="nav-link text-gray-600 hover:text-blue-900 font-medium">Investor Portal</a>
-                        <a href="contact.html" class="nav-link text-gray-600 hover:text-blue-900 font-medium">Contact</a>
-                    </div>
-                </div>
-                <div class="md:hidden">
-                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-blue-900">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <!-- Mobile menu -->
-        <div id="mobile-menu" class="md:hidden hidden bg-white shadow-lg">
-            <div class="px-2 pt-2 pb-3 space-y-1">
-                <a href="index.html" class="block px-3 py-2 text-blue-900 font-medium">Home</a>
-                <a href="investment-scheme.html" class="block px-3 py-2 text-gray-600 hover:text-blue-900">10th CIS</a>
-                <a href="solutions.html" class="block px-3 py-2 text-gray-600 hover:text-blue-900">Investment Solutions</a>
-                <a href="about.html" class="block px-3 py-2 text-gray-600 hover:text-blue-900">About Us</a>
-                <a href="insights.html" class="block px-3 py-2 text-gray-600 hover:text-blue-900">Market Insights</a>
-                <a href="portal.html" class="block px-3 py-2 text-gray-600 hover:text-blue-900">Investor Portal</a>
-                <a href="contact.html" class="block px-3 py-2 text-gray-600 hover:text-blue-900">Contact</a>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">BR JALAN</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="plan.html">10th CIS</a></li>
+                    <li class="nav-item"><a class="nav-link" href="investment.html">Investment Solutions</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="insights.html">Market Insights</a></li>
+                    <li class="nav-item"><a class="nav-link" href="portal.html">Investor Portal</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-warning ms-lg-3" href="contact.html">Get In Touch</a></li>
+                </ul>
             </div>
         </div>
     </nav>
-
-    <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center justify-center pt-16 overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-br from-blue-900/90 via-blue-800/90 to-amber-600/90"></div>
-        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div class="mb-8">
-                <h1 class="hero-title text-5xl md:text-7xl font-bold mb-6">
-                    <span id="typed-text"></span>
-                </h1>
-                <p class="text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto">
-                    Your trusted partner in wealth creation and investment excellence. 
-                    SEBI registered investment advisor committed to your financial success.
-                </p>
-            </div>
-            
-            <!-- Investment Calculator -->
-            <div class="investment-card rounded-2xl p-8 max-w-4xl mx-auto mb-12">
-                <h2 class="text-3xl font-bold text-gray-800 mb-6">Investment Calculator</h2>
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div class="space-y-6">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Investment Amount (₹)</label>
-                            <input type="range" id="investment-amount" min="100000" max="10000000" value="1000000" 
-                                   class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
-                            <div class="flex justify-between text-sm text-gray-600 mt-1">
-                                <span>₹1L</span>
-                                <span id="amount-display" class="data-font font-bold text-blue-900">₹10L</span>
-                                <span>₹1Cr</span>
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Investment Period (Years)</label>
-                            <input type="range" id="investment-period" min="1" max="20" value="5" 
-                                   class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
-                            <div class="flex justify-between text-sm text-gray-600 mt-1">
-                                <span>1Y</span>
-                                <span id="period-display" class="data-font font-bold text-blue-900">5Y</span>
-                                <span>20Y</span>
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Risk Profile</label>
-                            <select id="risk-profile" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-                                <option value="conservative">Conservative (8-10% p.a.)</option>
-                                <option value="balanced" selected>Balanced (12-15% p.a.)</option>
-                                <option value="aggressive">Aggressive (16-20% p.a.)</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="bg-gray-50 rounded-xl p-6">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Projected Returns</h3>
-                        <div class="space-y-4">
-                            <div class="flex justify-between items-center">
-                                <span class="text-gray-600">Total Investment:</span>
-                                <span id="total-investment" class="data-font font-bold text-blue-900">₹10,00,000</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-gray-600">Expected Returns:</span>
-                                <span id="expected-returns" class="data-font font-bold text-green-600">₹7,62,342</span>
-                            </div>
-                            <div class="border-t pt-4">
-                                <div class="flex justify-between items-center">
-                                    <span class="text-lg font-semibold text-gray-800">Total Value:</span>
-                                    <span id="total-value" class="data-font font-bold text-2xl text-blue-900">₹17,62,342</span>
-                                </div>
-                            </div>
-                            <div class="text-sm text-gray-600">
-                                <p>* Returns are indicative and subject to market risks</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="investment-scheme.html" class="bg-amber-500 hover:bg-amber-600 text-white px-8 py-4 rounded-lg font-semibold transition-colors">
-                    View 10th CIS
-                </a>
-                <a href="solutions.html" class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-blue-900 px-8 py-4 rounded-lg font-semibold transition-colors">
-                    Explore Solutions
-                </a>
-            </div>
+    
+    <a href="https://wa.me/919601271770" class="whatsapp-float" target="_blank" aria-label="Chat with us on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    
+    <header class="hero-section">
+        <div class="container text-center">
+            <h1 class="display-3 fw-bold">Navigating Wealth, Securing Futures.</h1>
+            <p class="lead mt-4 mb-5">Your Trusted Partner in Strategic Securities Market Investment.</p>
+            <a href="investment.html" class="btn btn-lg btn-warning me-3">Explore Solutions</a>
+            <a href="plan.html" class="btn btn-lg btn-outline-light">View 10th CIS Plan</a>
         </div>
-    </section>
+    </header>
 
-    <!-- Services Overview -->
-    <section class="py-20 bg-white/95">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold text-gray-800 mb-4">Our Core Services</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                    Comprehensive investment solutions tailored to your financial goals and risk appetite
-                </p>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="card-hover investment-card rounded-2xl p-8 text-center">
-                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Portfolio Management</h3>
-                    <p class="text-gray-600 mb-6">
-                        Expertly managed investment portfolios tailored to your risk profile and financial objectives.
-                    </p>
-                    <a href="solutions.html" class="text-blue-600 font-semibold hover:text-blue-800">Learn More →</a>
+    <section id="features" class="py-5">
+        <div class="container text-center">
+            <h2 class="section-title">Why Choose BR JALAN?</h2>
+            <div class="row mt-5">
+                <div class="col-md-4 mb-4">
+                    <i class="fas fa-handshake fa-3x text-primary mb-3"></i>
+                    <h4 class="fw-bold">Client-Centric Approach</h4>
+                    <p>Building long-term wealth through personalized and transparent advisory services.</p>
                 </div>
-                
-                <div class="card-hover investment-card rounded-2xl p-8 text-center">
-                    <div class="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <svg class="w-8 h-8 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Investment Advisory</h3>
-                    <p class="text-gray-600 mb-6">
-                        Personalized investment advice from SEBI registered advisors with proven track records.
-                    </p>
-                    <a href="about.html" class="text-blue-600 font-semibold hover:text-blue-800">Learn More →</a>
+                <div class="col-md-4 mb-4">
+                    <i class="fas fa-chart-line fa-3x text-primary mb-3"></i>
+                    <h4 class="fw-bold">Expert Market Insights</h4>
+                    <p>In-depth research and timely analysis to guide your investment decisions.</p>
                 </div>
-                
-                <div class="card-hover investment-card rounded-2xl p-8 text-center">
-                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Market Analysis</h3>
-                    <p class="text-gray-600 mb-6">
-                        In-depth market research and analysis to identify the best investment opportunities.
-                    </p>
-                    <a href="insights.html" class="text-blue-600 font-semibold hover:text-blue-800">Learn More →</a>
+                <div class="col-md-4 mb-4">
+                    <i class="fas fa-lock fa-3x text-primary mb-3"></i>
+                    <h4 class="fw-bold">Regulatory Compliance</h4>
+                    <p>SEBI registered firm ensuring strict adherence to all market regulations.</p>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Performance Stats -->
-    <section class="py-20 bg-gradient-to-r from-blue-900 to-amber-600">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold text-white mb-4">Our Performance</h2>
-                <p class="text-xl text-white/90 max-w-3xl mx-auto">
-                    Proven track record of delivering consistent returns to our investors
+    
+    <footer class="footer-custom mt-5">
+        <div class="container">
+            <div class="row pt-4 pb-2">
+                <div class="col-md-4 mb-3">
+                    <h5 class="text-white">Contact Info</h5>
+                    <p>Phone: <a href="tel:+919601271770">+91 9601271770</a></p>
+                    <p>SEBI Reg. No: INZ000199136</p>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h5 class="text-white">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="investment.html">Solutions</a></li>
+                        <li><a href="about.html">Our Values</a></li>
+                        <li><a href="insights.html">Market Reports</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h5 class="text-white">Legal</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Disclaimer</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr style="border-color: #555;">
+            <div class="text-center pb-3">
+                <p class="mb-0">
+                    © 2022 B R Jalan Securities Pvt. Ltd. All rights reserved. SEBI Reg. No. INZ000199136.
                 </p>
-            </div>
-            
-            <div class="grid md:grid-cols-4 gap-8 text-center">
-                <div class="stats-item">
-                    <div class="stats-counter" data-target="2500">0</div>
-                    <p class="text-white/90 text-lg font-medium">Happy Clients</p>
-                </div>
-                <div class="stats-item">
-                    <div class="stats-counter" data-target="450">0</div>
-                    <p class="text-white/90 text-lg font-medium">Crores Managed</p>
-                </div>
-                <div class="stats-item">
-                    <div class="stats-counter" data-target="18">0</div>
-                    <p class="text-white/90 text-lg font-medium">% Avg. Returns</p>
-                </div>
-                <div class="stats-item">
-                    <div class="stats-counter" data-target="15">0</div>
-                    <p class="text-white/90 text-lg font-medium">Years Experience</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Client Testimonials -->
-    <section class="py-20 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold text-gray-800 mb-4">What Our Clients Say</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                    Trusted by hundreds of investors across India
-                </p>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="investment-card rounded-2xl p-8">
-                    <div class="flex items-center mb-6">
-                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
-                            <span class="text-blue-600 font-bold">RK</span>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-800">Rajesh Kumar</h4>
-                            <p class="text-gray-600 text-sm">Business Owner, Mumbai</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 italic">
-                        "BR Jalan Securities has been instrumental in growing my portfolio. Their expert advice and personalized service are unmatched."
-                    </p>
-                    <div class="flex text-amber-400 mt-4">
-                        ★★★★★
-                    </div>
-                </div>
-                
-                <div class="investment-card rounded-2xl p-8">
-                    <div class="flex items-center mb-6">
-                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
-                            <span class="text-green-600 font-bold">PS</span>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-800">Priya Sharma</h4>
-                            <p class="text-gray-600 text-sm">IT Professional, Bangalore</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 italic">
-                        "Professional, transparent, and results-driven. I've seen consistent returns since I started investing with them."
-                    </p>
-                    <div class="flex text-amber-400 mt-4">
-                        ★★★★★
-                    </div>
-                </div>
-                
-                <div class="investment-card rounded-2xl p-8">
-                    <div class="flex items-center mb-6">
-                        <div class="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center mr-4">
-                            <span class="text-amber-600 font-bold">AK</span>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-800">Amit Kapoor</h4>
-                            <p class="text-gray-600 text-sm">Doctor, Delhi</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 italic">
-                        "As a busy professional, I needed someone I could trust with my investments. BR Jalan delivers excellence."
-                    </p>
-                    <div class="flex text-amber-400 mt-4">
-                        ★★★★★
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center">
-                <h3 class="text-2xl font-bold mb-4">BR Jalan Securities Pvt. Ltd.</h3>
-                <p class="text-gray-400 mb-6">
-                    SEBI Reg. No. INZ000199136<br>
+                <p class="text-warning small mt-1">
                     Investment in securities market are subject to market risks, read all the related documents carefully before investing.
                 </p>
-                <div class="border-t border-gray-700 pt-6">
-                    <p class="text-gray-400">
-                        © 2022 B R Jalan Securities Pvt. Ltd. All rights reserved.
-                    </p>
-                </div>
             </div>
         </div>
     </footer>
-
-    <!-- WhatsApp Float Button -->
-    <div class="whatsapp-float">
-        <a href="https://wa.me/919601271770" target="_blank" class="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition-colors">
-            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
-            </svg>
-        </a>
-    </div>
-
-    <script src="main.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
