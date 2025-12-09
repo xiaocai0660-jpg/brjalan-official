@@ -1,0 +1,109 @@
+/* BR JALAN Securities - Custom Styles */
+
+/* Variables */
+:root {
+  --primary-blue: #1e3a8a;
+  --accent-gold: #f59e0b;
+  --text-dark: #1b2945;
+  --text-body: #3a4360;
+  --bg-light: #f8fafc;
+}
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  line-height: 1.6;
+  color: var(--text-body);
+}
+
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(135deg, var(--primary-blue) 0%, #1e40af 50%, var(--accent-gold) 100%);
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  padding: 2rem 0;
+}
+
+/* Navbar Custom */
+.navbar-custom {
+  background-color: var(--primary-blue);
+}
+
+/* WhatsApp Float */
+.whatsapp-float {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #25d366;
+  color: white;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  z-index: 1000;
+  transition: all 0.3s;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.1);
+  color: white;
+}
+
+/* Section Titles */
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary-blue);
+  margin-bottom: 1rem;
+}
+
+/* Card Hover Effects */
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 28px rgba(15, 35, 80, 0.15) !important;
+}
+
+/* Footer Custom */
+.footer-custom {
+  background-color: #111827;
+  color: white;
+}
+
+.footer-custom h5 {
+  color: var(--accent-gold);
+  margin-bottom: 1rem;
+}
+
+.footer-custom a {
+  color: #d1d5db;
+  text-decoration: none;
+}
+
+.footer-custom a:hover {
+  color: var(--accent-gold);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 2rem;
+  }
+}
