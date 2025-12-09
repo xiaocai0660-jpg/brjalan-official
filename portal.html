@@ -3,817 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Investor Portal - BR Jalan Securities</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-blue: #1e3a8a;
-            --accent-gold: #f59e0b;
-            --success-green: #10b981;
-            --warning-red: #ef4444;
-            --neutral-light: #f8fafc;
-            --neutral-dark: #374151;
-        }
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, var(--primary-blue) 0%, #1e40af 50%, var(--accent-gold) 100%);
-            background-attachment: fixed;
-        }
-        
-        .hero-title {
-            font-family: 'Playfair Display', serif;
-            background: linear-gradient(135deg, #ffffff 0%, var(--accent-gold) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .data-font {
-            font-family: 'JetBrains Mono', monospace;
-        }
-        
-        .card-hover {
-            transition: all 0.3s ease;
-        }
-        
-        .card-hover:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-        }
-        
-        .investment-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .nav-link {
-            position: relative;
-            transition: color 0.3s ease;
-        }
-        
-        .nav-link:hover {
-            color: var(--accent-gold);
-        }
-        
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent-gold);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        
-        .whatsapp-float {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 1000;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-        
-        .portal-tab {
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .portal-tab.active {
-            background: var(--primary-blue);
-            color: white;
-        }
-        
-        .portal-tab:hover:not(.active) {
-            background: rgba(30, 58, 138, 0.1);
-        }
-        
-        .portal-content {
-            display: none;
-        }
-        
-        .portal-content.active {
-            display: block;
-            animation: fadeIn 0.5s ease-in-out;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .login-form {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .form-input {
-            transition: all 0.3s ease;
-        }
-        
-        .form-input:focus {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-        }
-        
-        .positive {
-            color: var(--success-green);
-        }
-        
-        .negative {
-            color: var(--warning-red);
-        }
-    </style>
+    <title>Investor Portal - BR JALAN</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="text-gray-800">
-    <!-- Navigation -->
-    <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-md shadow-lg z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex items-center">
-                    <h1 class="text-2xl font-bold text-blue-900">BR Jalan Securities</h1>
-                </div>
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-8">
-                        <a href="index.html" class="nav-link text-gray-600 hover:text-blue-900 font-medium">Home</a>
-                        <a href="investment-scheme.html" class="nav-link text-gray-600 hover:text-blue-900 font-medium">10th CIS</a>
-                        <a href="solutions.html" class="nav-link text-gray-600 hover:text-blue-900 font-medium">Investment Solutions</a>
-                        <a href="about.html" class="nav-link text-gray-600 hover:text-blue-900 font-medium">About Us</a>
-                        <a href="insights.html" class="nav-link text-gray-600 hover:text-blue-900 font-medium">Market Insights</a>
-                        <a href="portal.html" class="nav-link text-blue-900 font-medium">Investor Portal</a>
-                        <a href="contact.html" class="nav-link text-gray-600 hover:text-blue-900 font-medium">Contact</a>
-                    </div>
-                </div>
-                <div class="md:hidden">
-                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-blue-900">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <!-- Mobile menu -->
-        <div id="mobile-menu" class="md:hidden hidden bg-white shadow-lg">
-            <div class="px-2 pt-2 pb-3 space-y-1">
-                <a href="index.html" class="block px-3 py-2 text-gray-600 hover:text-blue-900">Home</a>
-                <a href="investment-scheme.html" class="block px-3 py-2 text-gray-600 hover:text-blue-900">10th CIS</a>
-                <a href="solutions.html" class="block px-3 py-2 text-gray-600 hover:text-blue-900">Investment Solutions</a>
-                <a href="about.html" class="block px-3 py-2 text-gray-600 hover:text-blue-900">About Us</a>
-                <a href="insights.html" class="block px-3 py-2 text-gray-600 hover:text-blue-900">Market Insights</a>
-                <a href="portal.html" class="block px-3 py-2 text-blue-900 font-medium">Investor Portal</a>
-                <a href="contact.html" class="block px-3 py-2 text-gray-600 hover:text-blue-900">Contact</a>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">BR JALAN</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="plan.html">10th CIS</a></li>
+                    <li class="nav-item"><a class="nav-link" href="investment.html">Investment Solutions</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="insights.html">Market Insights</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="portal.html">Investor Portal</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-warning ms-lg-3" href="contact.html">Get In Touch</a></li>
+                </ul>
             </div>
         </div>
     </nav>
+    
+    <a href="https://wa.me/919601271770" class="whatsapp-float" target="_blank" aria-label="Chat with us on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
-    <!-- Hero Section -->
-    <section class="relative pt-24 pb-16 overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-br from-blue-900/90 via-blue-800/90 to-amber-600/90"></div>
-        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 class="hero-title text-4xl md:text-6xl font-bold mb-6">
-                Investor Portal
-            </h1>
-            <p class="text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto">
-                Secure access to your investment portfolio, statements, and personalized insights
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <button id="login-demo-btn" class="bg-amber-500 hover:bg-amber-600 text-white px-8 py-4 rounded-lg font-semibold transition-colors">
-                    Demo Login
-                </button>
-                <a href="#features" class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-blue-900 px-8 py-4 rounded-lg font-semibold transition-colors">
-                    Explore Features
-                </a>
+    <section class="py-5">
+        <div class="container">
+            <h1 class="text-center section-title">Investor Portal Access</h1>
+            <p class="lead text-center mb-5">Secure access to your investment portfolio, statements, and reports.</p>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-5">
+                    <div class="card p-4 shadow-lg">
+                        <h4 class="text-primary text-center">Login to Your Account</h4>
+                        <form action="#" method="POST">
+                            <div class="mb-3">
+                                <label for="userId" class="form-label">User ID / PAN</label>
+                                <input type="text" class="form-control" id="userId" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Secure Login <i class="fas fa-sign-in-alt ms-2"></i></button>
+                            <div class="text-center mt-3">
+                                <a href="#" class="small text-muted">Forgot Password?</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-7 mt-4 mt-lg-0">
+                    <h4 class="text-primary">Portal Features</h4>
+                    <p>The Investor Portal offers a complete digital experience to monitor and manage your investments with BR JALAN:</p>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fas fa-chart-pie me-2 text-secondary"></i> <strong>Portfolio View:</strong> Real-time valuation and detailed asset breakdown.</li>
+                        <li class="list-group-item"><i class="fas fa-file-pdf me-2 text-secondary"></i> <strong>Report Downloads:</strong> Quarterly statements, tax certificates, and scheme updates.</li>
+                        <li class="list-group-item"><i class="fas fa-history me-2 text-secondary"></i> <strong>Transaction History:</strong> Comprehensive ledger of all past transactions and dividends.</li>
+                        <li class="list-group-item"><i class="fas fa-headset me-2 text-secondary"></i> <strong>Support Tickets:</strong> Direct messaging for client support requests.</li>
+                    </ul>
+                    <div class="alert alert-info mt-4" role="alert">
+                        First-time users: Please contact your Relationship Manager to set up your login credentials.
+                    </div>
+                </div>
             </div>
         </div>
     </section>
-
-    <!-- Portal Login Demo -->
-    <section id="portal-login" class="py-20 bg-white/95">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-4xl font-bold text-gray-800 mb-4">Portal Access</h2>
-                <p class="text-xl text-gray-600">
-                    Experience our secure investor portal with demo access
+    
+    <footer class="footer-custom mt-5">
+        <div class="container">
+            <div class="row pt-4 pb-2">
+                <div class="col-md-4 mb-3">
+                    <h5 class="text-white">Contact Info</h5>
+                    <p>Phone: <a href="tel:+919601271770">+91 9601271770</a></p>
+                    <p>SEBI Reg. No: INZ000199136</p>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h5 class="text-white">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="investment.html">Solutions</a></li>
+                        <li><a href="about.html">Our Values</a></li>
+                        <li><a href="insights.html">Market Reports</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h5 class="text-white">Legal</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Disclaimer</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr style="border-color: #555;">
+            <div class="text-center pb-3">
+                <p class="mb-0">
+                    © 2022 B R Jalan Securities Pvt. Ltd. All rights reserved. SEBI Reg. No. INZ000199136.
                 </p>
-            </div>
-            
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <!-- Login Form -->
-                <div class="login-form rounded-2xl p-8">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Client Login</h3>
-                    <form id="portal-login-form">
-                        <div class="space-y-6">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Client ID</label>
-                                <input type="text" id="client-id" value="DEMO12345" 
-                                       class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
-                                <input type="password" id="password" value="demo123" 
-                                       class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                            </div>
-                            <div class="flex items-center justify-between">
-                                <label class="flex items-center">
-                                    <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-                                    <span class="ml-2 text-sm text-gray-600">Remember me</span>
-                                </label>
-                                <a href="#" class="text-sm text-blue-600 hover:text-blue-800">Forgot password?</a>
-                            </div>
-                            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition-colors">
-                                Login to Portal
-                            </button>
-                        </div>
-                    </form>
-                    <div class="mt-6 text-center">
-                        <p class="text-sm text-gray-600">
-                            Demo Credentials: Client ID: DEMO12345 | Password: demo123
-                        </p>
-                    </div>
-                </div>
-                
-                <!-- Portal Features Preview -->
-                <div class="space-y-6">
-                    <div class="card-hover investment-card rounded-xl p-6">
-                        <div class="flex items-center mb-4">
-                            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
-                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                                </svg>
-                            </div>
-                            <h4 class="text-lg font-semibold text-gray-800">Portfolio Dashboard</h4>
-                        </div>
-                        <p class="text-gray-600">
-                            Real-time view of your investments, performance metrics, and asset allocation.
-                        </p>
-                    </div>
-                    
-                    <div class="card-hover investment-card rounded-xl p-6">
-                        <div class="flex items-center mb-4">
-                            <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-4">
-                                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                </svg>
-                            </div>
-                            <h4 class="text-lg font-semibold text-gray-800">Statements & Reports</h4>
-                        </div>
-                        <p class="text-gray-600">
-                            Download monthly statements, tax documents, and detailed portfolio reports.
-                        </p>
-                    </div>
-                    
-                    <div class="card-hover investment-card rounded-xl p-6">
-                        <div class="flex items-center mb-4">
-                            <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center mr-4">
-                                <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
-                                </svg>
-                            </div>
-                            <h4 class="text-lg font-semibold text-gray-800">Transaction History</h4>
-                        </div>
-                        <p class="text-gray-600">
-                            Complete transaction history with filters and search functionality.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Portal Features -->
-    <section id="features" class="py-20 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold text-gray-800 mb-4">Portal Features</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                    Comprehensive tools to manage your investments effectively
-                </p>
-            </div>
-            
-            <!-- Portal Tabs -->
-            <div class="investment-card rounded-2xl p-8 mb-8">
-                <div class="flex flex-wrap gap-2 mb-8">
-                    <button class="portal-tab active px-6 py-3 rounded-lg font-medium" data-tab="overview">
-                        Overview
-                    </button>
-                    <button class="portal-tab px-6 py-3 rounded-lg font-medium" data-tab="holdings">
-                        Holdings
-                    </button>
-                    <button class="portal-tab px-6 py-3 rounded-lg font-medium" data-tab="transactions">
-                        Transactions
-                    </button>
-                    <button class="portal-tab px-6 py-3 rounded-lg font-medium" data-tab="reports">
-                        Reports
-                    </button>
-                    <button class="portal-tab px-6 py-3 rounded-lg font-medium" data-tab="profile">
-                        Profile
-                    </button>
-                </div>
-                
-                <!-- Overview Tab -->
-                <div id="overview" class="portal-content active">
-                    <div class="grid lg:grid-cols-3 gap-8">
-                        <div class="lg:col-span-2">
-                            <h3 class="text-2xl font-bold text-gray-800 mb-6">Portfolio Overview</h3>
-                            <div id="portfolio-overview-chart" style="width: 100%; height: 300px;"></div>
-                        </div>
-                        <div class="space-y-6">
-                            <div class="bg-gray-50 rounded-xl p-6">
-                                <h4 class="text-lg font-semibold text-gray-800 mb-4">Portfolio Value</h4>
-                                <div class="data-font text-3xl font-bold text-blue-900 mb-2">₹15,42,890</div>
-                                <div class="text-sm positive font-semibold">+₹1,23,456 (+8.7%) Today</div>
-                            </div>
-                            <div class="bg-gray-50 rounded-xl p-6">
-                                <h4 class="text-lg font-semibold text-gray-800 mb-4">Total Returns</h4>
-                                <div class="data-font text-3xl font-bold text-green-600 mb-2">+₹3,42,890</div>
-                                <div class="text-sm text-gray-600">28.6% All Time</div>
-                            </div>
-                            <div class="bg-gray-50 rounded-xl p-6">
-                                <h4 class="text-lg font-semibold text-gray-800 mb-4">Available Cash</h4>
-                                <div class="data-font text-3xl font-bold text-amber-600 mb-2">₹1,23,450</div>
-                                <div class="text-sm text-gray-600">Ready to Invest</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Holdings Tab -->
-                <div id="holdings" class="portal-content">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Current Holdings</h3>
-                    <div class="overflow-x-auto">
-                        <table class="w-full">
-                            <thead>
-                                <tr class="border-b border-gray-200">
-                                    <th class="text-left py-3 px-4 font-semibold text-gray-700">Stock</th>
-                                    <th class="text-right py-3 px-4 font-semibold text-gray-700">Quantity</th>
-                                    <th class="text-right py-3 px-4 font-semibold text-gray-700">Avg. Price</th>
-                                    <th class="text-right py-3 px-4 font-semibold text-gray-700">Current Price</th>
-                                    <th class="text-right py-3 px-4 font-semibold text-gray-700">Market Value</th>
-                                    <th class="text-right py-3 px-4 font-semibold text-gray-700">P&L</th>
-                                    <th class="text-right py-3 px-4 font-semibold text-gray-700">% Change</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="border-b border-gray-100">
-                                    <td class="py-3 px-4">
-                                        <div>
-                                            <div class="font-semibold text-gray-800">RELIANCE</div>
-                                            <div class="text-sm text-gray-600">Reliance Industries</div>
-                                        </div>
-                                    </td>
-                                    <td class="text-right py-3 px-4 data-font">125</td>
-                                    <td class="text-right py-3 px-4 data-font">₹2,450</td>
-                                    <td class="text-right py-3 px-4 data-font">₹2,680</td>
-                                    <td class="text-right py-3 px-4 data-font font-semibold">₹3,35,000</td>
-                                    <td class="text-right py-3 px-4 data-font positive">+₹28,750</td>
-                                    <td class="text-right py-3 px-4 data-font positive">+9.4%</td>
-                                </tr>
-                                <tr class="border-b border-gray-100">
-                                    <td class="py-3 px-4">
-                                        <div>
-                                            <div class="font-semibold text-gray-800">TCS</div>
-                                            <div class="text-sm text-gray-600">Tata Consultancy</div>
-                                        </div>
-                                    </td>
-                                    <td class="text-right py-3 px-4 data-font">85</td>
-                                    <td class="text-right py-3 px-4 data-font">₹3,420</td>
-                                    <td class="text-right py-3 px-4 data-font">₹3,680</td>
-                                    <td class="text-right py-3 px-4 data-font font-semibold">₹3,12,800</td>
-                                    <td class="text-right py-3 px-4 data-font positive">+₹22,100</td>
-                                    <td class="text-right py-3 px-4 data-font positive">+7.6%</td>
-                                </tr>
-                                <tr class="border-b border-gray-100">
-                                    <td class="py-3 px-4">
-                                        <div>
-                                            <div class="font-semibold text-gray-800">HDFC</div>
-                                            <div class="text-sm text-gray-600">HDFC Bank</div>
-                                        </div>
-                                    </td>
-                                    <td class="text-right py-3 px-4 data-font">150</td>
-                                    <td class="text-right py-3 px-4 data-font">₹1,680</td>
-                                    <td class="text-right py-3 px-4 data-font">₹1,720</td>
-                                    <td class="text-right py-3 px-4 data-font font-semibold">₹2,58,000</td>
-                                    <td class="text-right py-3 px-4 data-font positive">+₹6,000</td>
-                                    <td class="text-right py-3 px-4 data-font positive">+2.4%</td>
-                                </tr>
-                                <tr class="border-b border-gray-100">
-                                    <td class="py-3 px-4">
-                                        <div>
-                                            <div class="font-semibold text-gray-800">INFY</div>
-                                            <div class="text-sm text-gray-600">Infosys</div>
-                                        </div>
-                                    </td>
-                                    <td class="text-right py-3 px-4 data-font">95</td>
-                                    <td class="text-right py-3 px-4 data-font">₹1,850</td>
-                                    <td class="text-right py-3 px-4 data-font">₹1,920</td>
-                                    <td class="text-right py-3 px-4 data-font font-semibold">₹1,82,400</td>
-                                    <td class="text-right py-3 px-4 data-font positive">+₹6,650</td>
-                                    <td class="text-right py-3 px-4 data-font positive">+3.8%</td>
-                                </tr>
-                                <tr>
-                                    <td class="py-3 px-4">
-                                        <div>
-                                            <div class="font-semibold text-gray-800">ICICI</div>
-                                            <div class="text-sm text-gray-600">ICICI Bank</div>
-                                        </div>
-                                    </td>
-                                    <td class="text-right py-3 px-4 data-font">200</td>
-                                    <td class="text-right py-3 px-4 data-font">₹890</td>
-                                    <td class="text-right py-3 px-4 data-font">₹920</td>
-                                    <td class="text-right py-3 px-4 data-font font-semibold">₹1,84,000</td>
-                                    <td class="text-right py-3 px-4 data-font positive">+₹6,000</td>
-                                    <td class="text-right py-3 px-4 data-font positive">+3.4%</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
-                <!-- Transactions Tab -->
-                <div id="transactions" class="portal-content">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Recent Transactions</h3>
-                    <div class="space-y-4">
-                        <div class="bg-gray-50 rounded-lg p-4">
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <div class="font-semibold text-gray-800">Buy - RELIANCE</div>
-                                    <div class="text-sm text-gray-600">Dec 09, 2024 • 14:30</div>
-                                </div>
-                                <div class="text-right">
-                                    <div class="data-font font-semibold text-green-600">+25 Shares</div>
-                                    <div class="data-font text-sm text-gray-600">₹2,650 avg</div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="bg-gray-50 rounded-lg p-4">
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <div class="font-semibold text-gray-800">Sell - TCS</div>
-                                    <div class="text-sm text-gray-600">Dec 08, 2024 • 11:15</div>
-                                </div>
-                                <div class="text-right">
-                                    <div class="data-font font-semibold text-red-600">-50 Shares</div>
-                                    <div class="data-font text-sm text-gray-600">₹3,720 avg</div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="bg-gray-50 rounded-lg p-4">
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <div class="font-semibold text-gray-800">Dividend - HDFC</div>
-                                    <div class="text-sm text-gray-600">Dec 07, 2024 • 09:00</div>
-                                </div>
-                                <div class="text-right">
-                                    <div class="data-font font-semibold text-green-600">+₹7,500</div>
-                                    <div class="text-sm text-gray-600">Dividend Credit</div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="bg-gray-50 rounded-lg p-4">
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <div class="font-semibold text-gray-800">Buy - INFY</div>
-                                    <div class="text-sm text-gray-600">Dec 06, 2024 • 15:45</div>
-                                </div>
-                                <div class="text-right">
-                                    <div class="data-font font-semibold text-green-600">+30 Shares</div>
-                                    <div class="data-font text-sm text-gray-600">₹1,890 avg</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Reports Tab -->
-                <div id="reports" class="portal-content">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Reports & Statements</h3>
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div class="space-y-4">
-                            <h4 class="text-lg font-semibold text-gray-800">Portfolio Reports</h4>
-                            <div class="space-y-3">
-                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                                    <div>
-                                        <div class="font-semibold text-gray-800">Monthly Statement</div>
-                                        <div class="text-sm text-gray-600">November 2024</div>
-                                    </div>
-                                    <button class="text-blue-600 hover:text-blue-800 font-medium">Download</button>
-                                </div>
-                                
-                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                                    <div>
-                                        <div class="font-semibold text-gray-800">Portfolio Summary</div>
-                                        <div class="text-sm text-gray-600">As of Dec 09, 2024</div>
-                                    </div>
-                                    <button class="text-blue-600 hover:text-blue-800 font-medium">Download</button>
-                                </div>
-                                
-                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                                    <div>
-                                        <div class="font-semibold text-gray-800">Performance Report</div>
-                                        <div class="text-sm text-gray-600">Q3 2024</div>
-                                    </div>
-                                    <button class="text-blue-600 hover:text-blue-800 font-medium">Download</button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="space-y-4">
-                            <h4 class="text-lg font-semibold text-gray-800">Tax Documents</h4>
-                            <div class="space-y-3">
-                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                                    <div>
-                                        <div class="font-semibold text-gray-800">Capital Gains Statement</div>
-                                        <div class="text-sm text-gray-600">FY 2024-25</div>
-                                    </div>
-                                    <button class="text-blue-600 hover:text-blue-800 font-medium">Download</button>
-                                </div>
-                                
-                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                                    <div>
-                                        <div class="font-semibold text-gray-800">Tax Statement</div>
-                                        <div class="text-sm text-gray-600">FY 2024-25</div>
-                                    </div>
-                                    <button class="text-blue-600 hover:text-blue-800 font-medium">Download</button>
-                                </div>
-                                
-                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                                    <div>
-                                        <div class="font-semibold text-gray-800">Form 26AS</div>
-                                        <div class="text-sm text-gray-600">FY 2024-25</div>
-                                    </div>
-                                    <button class="text-blue-600 hover:text-blue-800 font-medium">Download</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Profile Tab -->
-                <div id="profile" class="portal-content">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Profile & Settings</h3>
-                    <div class="grid md:grid-cols-2 gap-8">
-                        <div class="space-y-6">
-                            <div class="bg-gray-50 rounded-xl p-6">
-                                <h4 class="text-lg font-semibold text-gray-800 mb-4">Personal Information</h4>
-                                <div class="space-y-3">
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-600">Full Name</label>
-                                        <div class="data-font font-semibold text-gray-800">Demo User</div>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-600">Email</label>
-                                        <div class="data-font font-semibold text-gray-800">demo@example.com</div>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-600">Phone</label>
-                                        <div class="data-font font-semibold text-gray-800">+91 98765 43210</div>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-600">PAN</label>
-                                        <div class="data-font font-semibold text-gray-800">ABCDE1234F</div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="bg-gray-50 rounded-xl p-6">
-                                <h4 class="text-lg font-semibold text-gray-800 mb-4">Investment Preferences</h4>
-                                <div class="space-y-3">
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-600">Risk Profile</label>
-                                        <div class="font-semibold text-amber-600">Moderate</div>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-600">Investment Horizon</label>
-                                        <div class="font-semibold text-gray-800">Long Term (5+ years)</div>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-600">Preferred Sectors</label>
-                                        <div class="font-semibold text-gray-800">Technology, Banking, FMCG</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="space-y-6">
-                            <div class="bg-gray-50 rounded-xl p-6">
-                                <h4 class="text-lg font-semibold text-gray-800 mb-4">Security Settings</h4>
-                                <div class="space-y-4">
-                                    <div class="flex items-center justify-between">
-                                        <span class="text-gray-600">Two-Factor Authentication</span>
-                                        <button class="bg-green-500 text-white px-3 py-1 rounded text-sm font-medium">Enabled</button>
-                                    </div>
-                                    <div class="flex items-center justify-between">
-                                        <span class="text-gray-600">Login Notifications</span>
-                                        <button class="bg-green-500 text-white px-3 py-1 rounded text-sm font-medium">Enabled</button>
-                                    </div>
-                                    <div class="flex items-center justify-between">
-                                        <span class="text-gray-600">Password Expiry</span>
-                                        <span class="text-gray-800">90 days</span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="bg-gray-50 rounded-xl p-6">
-                                <h4 class="text-lg font-semibold text-gray-800 mb-4">Account Activity</h4>
-                                <div class="space-y-3">
-                                    <div>
-                                        <div class="text-sm text-gray-600">Last Login</div>
-                                        <div class="font-semibold text-gray-800">Dec 09, 2024 • 10:30 AM</div>
-                                    </div>
-                                    <div>
-                                        <div class="text-sm text-gray-600">Last Transaction</div>
-                                        <div class="font-semibold text-gray-800">Dec 09, 2024 • 02:30 PM</div>
-                                    </div>
-                                    <div>
-                                        <div class="text-sm text-gray-600">Account Status</div>
-                                        <div class="font-semibold text-green-600">Active</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center">
-                <h3 class="text-2xl font-bold mb-4">BR Jalan Securities Pvt. Ltd.</h3>
-                <p class="text-gray-400 mb-6">
-                    SEBI Reg. No. INZ000199136<br>
+                <p class="text-warning small mt-1">
                     Investment in securities market are subject to market risks, read all the related documents carefully before investing.
                 </p>
-                <div class="border-t border-gray-700 pt-6">
-                    <p class="text-gray-400">
-                        © 2022 B R Jalan Securities Pvt. Ltd. All rights reserved.
-                    </p>
-                </div>
             </div>
         </div>
     </footer>
 
-    <!-- WhatsApp Float Button -->
-    <div class="whatsapp-float">
-        <a href="https://wa.me/919601271770" target="_blank" class="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition-colors">
-            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
-            </svg>
-        </a>
-    </div>
-
-    <script>
-        // Mobile Menu Toggle
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        
-        if (mobileMenuBtn && mobileMenu) {
-            mobileMenuBtn.addEventListener('click', function() {
-                mobileMenu.classList.toggle('hidden');
-            });
-        }
-
-        // Portal Login Demo
-        document.getElementById('login-demo-btn').addEventListener('click', function() {
-            document.getElementById('portal-login').scrollIntoView({ behavior: 'smooth' });
-        });
-
-        document.getElementById('portal-login-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const clientId = document.getElementById('client-id').value;
-            const password = document.getElementById('password').value;
-            
-            if (clientId === 'DEMO12345' && password === 'demo123') {
-                // Show success message and scroll to features
-                alert('Demo login successful! Scroll down to explore portal features.');
-                document.getElementById('features').scrollIntoView({ behavior: 'smooth' });
-            } else {
-                alert('Please use demo credentials: Client ID: DEMO12345, Password: demo123');
-            }
-        });
-
-        // Portal Tab Management
-        const portalTabs = document.querySelectorAll('.portal-tab');
-        const portalContents = document.querySelectorAll('.portal-content');
-
-        portalTabs.forEach(tab => {
-            tab.addEventListener('click', function() {
-                const targetTab = this.getAttribute('data-tab');
-                
-                // Remove active class from all tabs and contents
-                portalTabs.forEach(t => t.classList.remove('active'));
-                portalContents.forEach(c => c.classList.remove('active'));
-                
-                // Add active class to clicked tab and corresponding content
-                this.classList.add('active');
-                document.getElementById(targetTab).classList.add('active');
-            });
-        });
-
-        // Initialize Portfolio Overview Chart
-        function initPortfolioChart() {
-            const portfolioChart = echarts.init(document.getElementById('portfolio-overview-chart'));
-            
-            const option = {
-                tooltip: {
-                    trigger: 'item',
-                    formatter: '{a} <br/>{b}: {c}% ({d}%)'
-                },
-                legend: {
-                    orient: 'vertical',
-                    left: 'left',
-                    data: ['Equity', 'Debt', 'Gold', 'Cash']
-                },
-                series: [{
-                    name: 'Portfolio',
-                    type: 'pie',
-                    radius: ['40%', '70%'],
-                    center: ['60%', '50%'],
-                    data: [
-                        {value: 60, name: 'Equity', itemStyle: {color: '#1e3a8a'}},
-                        {value: 25, name: 'Debt', itemStyle: {color: '#10b981'}},
-                        {value: 10, name: 'Gold', itemStyle: {color: '#f59e0b'}},
-                        {value: 5, name: 'Cash', itemStyle: {color: '#6b7280'}}
-                    ],
-                    emphasis: {
-                        itemStyle: {
-                            shadowBlur: 10,
-                            shadowOffsetX: 0,
-                            shadowColor: 'rgba(0, 0, 0, 0.5)'
-                        }
-                    }
-                }]
-            };
-            
-            portfolioChart.setOption(option);
-        }
-
-        // Initialize everything
-        document.addEventListener('DOMContentLoaded', function() {
-            initPortfolioChart();
-        });
-
-        // Handle window resize
-        window.addEventListener('resize', function() {
-            const portfolioChart = echarts.getInstanceByDom(document.getElementById('portfolio-overview-chart'));
-            if (portfolioChart) portfolioChart.resize();
-        });
-
-        // Animate cards on scroll
-        document.addEventListener('DOMContentLoaded', function() {
-            const cards = document.querySelectorAll('.card-hover');
-            
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-            
-            const observer = new IntersectionObserver(function(entries) {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        anime({
-                            targets: entry.target,
-                            translateY: [50, 0],
-                            opacity: [0, 1],
-                            duration: 800,
-                            easing: 'easeOutExpo',
-                            delay: anime.stagger(200)
-                        });
-                        
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
-            
-            cards.forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(50px)';
-                observer.observe(card);
-            });
-        });
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
